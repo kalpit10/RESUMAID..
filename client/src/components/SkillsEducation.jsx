@@ -44,7 +44,7 @@ function SkillsEducation() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/colleges")
+    fetch("https://resumaid.herokuapp.com/colleges")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
