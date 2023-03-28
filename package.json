@@ -30,6 +30,7 @@
     "multer": "^1.4.5-lts.1",
     "request": "^2.88.2",
     "resume-parser": "^1.1.0",
+    "symlink-dir": "^5.1.1",
     "tracer": "^1.1.6",
     "underscore": "^1.13.6"
   },
