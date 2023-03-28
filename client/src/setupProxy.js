@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "/result",
     createProxyMiddleware({
-      target: "http://localhost:5000",
+      target: "https://resumaid.herokuapp.com/",
       changeOrigin: true,
     })
   );
