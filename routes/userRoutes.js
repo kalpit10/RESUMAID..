@@ -1,8 +1,8 @@
 const express = require("express");
 const csv = require("csv-parser");
-const User = require("../models/userModel");
+const User = require("../models/usermodel");
 const College = require("../models/colleges");
-// const FileModel = require("../models/filemodel");
+const FileModel = require("../models/filemodel");
 const fs = require("fs");
 const app = express.Router();
 
