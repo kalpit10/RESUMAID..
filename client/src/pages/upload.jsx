@@ -36,7 +36,7 @@ function FileUpload() {
         title: "File uploaded successfully",
         icon: "success",
       });
-      fetch("http://localhost:5000/upload", {
+      fetch("https://resumaid.herokuapp.com/upload", {
         method: "POST",
         body: data,
       })
