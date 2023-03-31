@@ -36,7 +36,6 @@ View your resume scores and profile information.
 # Contributors
 Name- Kalpit Swami, Lishika Goel, Mantra Manas Acharya
 
-# License
-This project is licensed under the MIT License - see the LICENSE file for details.
+
 
 
