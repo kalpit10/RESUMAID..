@@ -5,6 +5,7 @@ async function Score() {
   let score = 0;
 
   try {
+    //const response = await fetch("http://localhost:5000/result");
     const response = await fetch("https://resumaid.herokuapp.com/result");
     const data = await response.json();
 
