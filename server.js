@@ -18,6 +18,12 @@ app.use(express.json());
 
 app.use("/api/user/", userRoute);
 
+app.use(
+  cors({
+    origin: "https://resumaid.herokuapp.com",
+  })
+);
+
 //FOR DEPLOYMENT
 if (process.env.NODE_ENV === "production") {
   app.use("/", express.static("client/build"));
