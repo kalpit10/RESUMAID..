@@ -18,11 +18,14 @@ app.use(express.json());
 
 app.use("/api/user/", userRoute);
 
-app.use(
-  cors({
-    origin: "https://resumaid.herokuapp.com",
-  })
-);
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // update with appropriate domain name
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 //FOR DEPLOYMENT
 if (process.env.NODE_ENV === "production") {
