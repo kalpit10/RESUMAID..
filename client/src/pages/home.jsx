@@ -52,11 +52,7 @@ function Home() {
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
         crossOrigin="anonymous"
       />
-      <link
-        href="https://fonts.cdnfonts.com/css/cera-round-pro"
-        rel="stylesheet"
-      />
-      <link href="https://fonts.cdnfonts.com/css/manifestor" rel="stylesheet" />
+      
       <link rel={landing1} href="finaldraft.css" />
       <nav
         id="navbar-example2"
