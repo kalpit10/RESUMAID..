@@ -59,7 +59,6 @@ const upload = multer({ storage: storage });
 //single means single file, for multiple files we say upload.arrays
 //upload.single("Input tag name to be passed in which you are uploading the file")
 app.post("/upload", upload.single("File"), (req, res) => {
-  res.send("File Uploaded");
   setTimeout(() => {
     ResumeParser.parseResumeFile(
       `./resume-parser-master/files/${req.file.filename}`,
@@ -67,10 +66,15 @@ app.post("/upload", upload.single("File"), (req, res) => {
     ) //input file, output dir
       .then((file) => {
         console.log("Yay! " + file);
+        res.json({
+          success: true,
+          message: "File Uploaded and Parsed Successfully",
+        });
       })
       .catch((error) => {
         console.log("parseResume failed");
         console.error(error);
+        res.json({ success: false, message: "Error parsing uploaded file" });
       });
   }, 0);
 });
