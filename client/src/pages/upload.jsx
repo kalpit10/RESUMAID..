@@ -115,12 +115,14 @@ function FileUpload() {
         <div className="ms-4">
           {error && <p>{error}</p>}
           <button
+            type="submit"
             onClick={handleUpload}
             className="btn btn-primary font m-4 btn-lg"
           >
             Upload
           </button>
           <button
+            type="button"
             onClick={() => navigate("/result")}
             className="btn btn-primary font m-4 btn-lg"
             disabled={checkScoreDisabled} // Set the disabled attribute based on the checkScoreDisabled state
