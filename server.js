@@ -53,7 +53,7 @@ app.set("view engine", "ejs");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     //null(no errors), "destination"
-    cb(null, "./resume-parser-master/files/");
+    cb(null, "./resume-parser-master/resumeFiles/");
   },
 
   filename: (req, file, cb) => {
@@ -70,8 +70,8 @@ const upload = multer({ storage: storage });
 app.post("/upload", upload.single("File"), (req, res) => {
   setTimeout(() => {
     ResumeParser.parseResumeFile(
-      `./resume-parser-master/files/${req.file.filename}`,
-      `./resume-parser-master/files/compiled`
+      `./resume-parser-master/resumeFiles/${req.file.filename}`,
+      `./resume-parser-master/resumeFiles/compiled`
     ) //input file, output dir
       .then((file) => {
         console.log("Yay! " + file);
@@ -94,7 +94,7 @@ app.get("/result", (req, res) => {
   const dirPath = path.join(
     __dirname,
     "resume-parser-master",
-    "files",
+    "resumeFiles",
     "compiled"
   );
 
