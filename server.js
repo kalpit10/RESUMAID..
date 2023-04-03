@@ -19,7 +19,7 @@ app.use(express.json());
 app.use("/api/user/", userRoute);
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // update with appropriate domain name
+  res.header("Access-Control-Allow-Origin", "https://resumaid.herokuapp.com"); // update with appropriate domain name
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
