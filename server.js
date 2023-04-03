@@ -20,12 +20,19 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user/", userRoute);
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://resumaid.herokuapp.com"); // update with appropriate domain name
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "https://resumaid.herokuapp.com"); // update with appropriate domain name
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://resumaid.herokuapp.com");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
 
