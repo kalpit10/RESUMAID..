@@ -15,6 +15,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
+// You can use app.use(express.urlencoded({ extended: true })) to parse URL-encoded request bodies.
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user/", userRoute);
 

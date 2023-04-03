@@ -53,13 +53,53 @@ function FileUpload() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault(); // prevent the default form submit behavior
+
+    // create a new FormData object
+    const formData = new FormData();
+
+    // append the file to the FormData object
+    formData.append("File", file);
+
+    // send a POST request to the server with the FormData as the body
+    fetch("https://resumaid.herokuapp.com/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          setCheckScoreDisabled(false); // enable the check score button
+          setError(null); // clear any previous error messages
+        } else {
+          setCheckScoreDisabled(true); // disable the check score button
+          setError(data.message); // display the error message
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setCheckScoreDisabled(true); // disable the check score button
+        setError("Error uploading file. Please try again."); // display a generic error message
+      });
+  };
+
   return (
     <DefaultLayout>
       <p className="font fs-4 mt-4 text-center ms-5 ps-5">
         So, here you are!<br></br> Upload your resume here and get it tested by
         us.
       </p>
-      <form className="position-absolute top-50 start-50 translate-middle mt-5 ms-5">
+      <form
+        className="position-absolute top-50 start-50 translate-middle mt-5 ms-5"
+        onSubmit={handleSubmit}
+      >
         <p className="font fs-6 text-center font-monospace">
           Upload in .docx format(Resumes crafted with text-based editors only)
         </p>
