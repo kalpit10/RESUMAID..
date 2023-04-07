@@ -9,6 +9,7 @@ const multer = require("multer");
 const router = express.Router();
 const path = require("path");
 const College = require("./models/colleges");
+const resumeData = require("./models/resume");
 
 const app = express();
 
@@ -68,24 +69,51 @@ const upload = multer({ storage: storage });
 //single means single file, for multiple files we say upload.arrays
 //upload.single("Input tag name to be passed in which you are uploading the file")
 app.post("/upload", upload.single("File"), (req, res) => {
-  setTimeout(() => {
-    ResumeParser.parseResumeFile(
-      `./resume-parser-master/resumeFiles/${req.file.filename}`,
-      `./resume-parser-master/resumeFiles/compiled`
-    ) //input file, output dir
-      .then((file) => {
-        console.log("Yay! " + file);
-        res.json({
-          success: true,
-          message: "File Uploaded and Parsed Successfully",
-        });
-      })
-      .catch((error) => {
-        console.log("parseResume failed");
-        console.error(error);
-        res.json({ success: false, message: "Error parsing uploaded file" });
+  ResumeParser.parseResumeFile(
+    `./resume-parser-master/resumeFiles/${req.file.filename}`,
+    `./resume-parser-master/resumeFiles/compiled`
+  )
+    .then((file) => {
+      console.log("Yay! " + file);
+      //we used readFileSync method because  we cannot require() a json file directly in node.
+      const resumeJson = fs.readFileSync(
+        `./resume-parser-master/resumeFiles/compiled/${req.file.filename}.json`
+      );
+      //parsing here is necessary because otherwise the content is shown in buffer type, console.log() to check it.
+      const resume = JSON.parse(resumeJson);
+      const resumeFile = new resumeData({
+        name: resume.name || "",
+        email: resume.email || "",
+        skills: resume.skills || "",
+        experience: resume.experience || "",
+        education: resume.education || "",
+        projects: resume.projects || "",
+        interests: resume.interests || "",
+        certifications: resume.certifications || "",
+        objective: resume.objective || "",
+        summary: resume.summary || "",
+        technology: resume.technology || "",
+        languages: resume.languages || "",
+        links: resume.links || "",
+        contacts: resume.contacts || "",
+        positions: resume.positions || "",
+        profiles: resume.profiles || "",
       });
-  }, 0);
+
+      return resumeFile.save();
+    })
+    .then((savedResume) => {
+      console.log("Resume saved to database:", savedResume);
+      res.json({
+        success: true,
+        message: "File Uploaded and Parsed Successfully",
+      });
+    })
+    .catch((error) => {
+      console.log("parseResume failed");
+      console.error(error);
+      res.json({ success: false, message: "Error parsing uploaded file" });
+    });
 });
 
 //this endpoint will send the latest json file to the score.js file in react and use that file's data

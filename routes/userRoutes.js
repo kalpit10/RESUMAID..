@@ -2,7 +2,6 @@ const express = require("express");
 const csv = require("csv-parser");
 const User = require("../models/usermodel");
 const College = require("../models/colleges");
-const FileModel = require("../models/filemodel");
 const fs = require("fs");
 const app = express.Router();
 
@@ -44,18 +43,6 @@ app.post("/update", async (req, res) => {
   }
 });
 
-app.post("/upload", async (req, res) => {
-  console.log(req.files.file);
-  //for file
-  const filePath = req.file.path;
-  const fileContent = fs.readFileSync(filePath);
-  const fileName = req.file.originalname;
-  const newFile = new FileModel({ name: fileName, content: fileContent });
-  await newFile.save();
 
-  //for purana hisaab
-  await req.files.file.mv(`${__dirname}/uploads/${req.files.file.name}`);
-  res.send("Uploaded");
-});
 
 module.exports = app;
