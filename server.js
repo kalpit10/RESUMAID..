@@ -29,7 +29,15 @@ app.use((req, res, next) => {
   next();
 });
 
-
+app.use(function (req, res, next) {
+  if (
+    req.path === "/result" ||
+    req.path === "/upload" ||
+    req.path === "/colleges"
+  ) {
+    res.header("Content-Type", "application/json");
+  }
+});
 
 //FOR DEPLOYMENT
 if (process.env.NODE_ENV === "production") {
