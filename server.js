@@ -11,7 +11,8 @@ const router = express.Router();
 const path = require("path");
 const College = require("./models/colleges");
 const resumeData = require("./models/resume");
-const compression = require("compression");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 const app = express();
 
@@ -30,14 +31,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(compression());
-
 app.use(function (req, res, next) {
-  if (
-    req.path === "/result" ||
-    req.path === "/upload" ||
-    req.path === "/colleges"
-  ) {
+  if (req.path === "/result" || req.path === "/colleges") {
     res.header("Content-Type", "application/json");
   }
   next();
