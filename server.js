@@ -11,6 +11,7 @@ const router = express.Router();
 const path = require("path");
 const College = require("./models/colleges");
 const resumeData = require("./models/resume");
+const compression = require("compression");
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
+
+app.use(compression());
 
 app.use(function (req, res, next) {
   if (
