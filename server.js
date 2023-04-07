@@ -29,10 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(function (req, res, next) {
-  res.header("Content-Type", "application/json");
-  next();
-});
+
 
 //FOR DEPLOYMENT
 if (process.env.NODE_ENV === "production") {
