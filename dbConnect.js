@@ -1,8 +1,7 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
-const URL =
-  "mongodb+srv://kalpit10:w09dHr55mb1k66EL@cluster0.vi4x2q2.mongodb.net/resumaidDB";
 
-mongoose.connect(URL);
+mongoose.connect(process.env.MONGODB_URI);
 const connection = mongoose.connection;
 
 connection.on("connected", () => {
